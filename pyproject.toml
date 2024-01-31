@@ -3,7 +3,7 @@ omit = [
     "*__init__.py",
     "/src/main.py"
 ]
-source = ["src"]
+source = []
 
 [tool.ruff]
 exclude = [
@@ -33,7 +33,7 @@ exclude = [
 
 fixable = ["ALL"]
 unfixable = []
-src = ["src", "tests"]
+src = []
 
 [tool.ruff.format]
 quote-style = "double"
