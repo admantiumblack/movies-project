@@ -24,7 +24,9 @@
 				"ms-python.python",
 				"KevinRose.vsc-python-indent",
 				"tamasfe.even-better-toml",
-				"njpwerner.autodocstring"
+				"njpwerner.autodocstring",
+				"ecmel.vscode-html-css",
+				"koppt.vscode-view-in-browser"
 			]
 		}
 	},
