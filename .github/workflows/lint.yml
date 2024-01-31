@@ -1,0 +1,20 @@
+name: Ruff
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: install dependancies
+      run: |
+        pip install -r requirements.txt
+        pip install ruff
+
+    - name: lint and reformat code
+      run: |
+        ruff check $(git diff --name-only --cached -- '*.py') --fix
