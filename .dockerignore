@@ -1,0 +1,6 @@
+db.sqlite3
+README.md
+test
+.github
+.ruff_cache
+.devcontainer
