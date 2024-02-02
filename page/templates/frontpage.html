@@ -21,7 +21,7 @@
         $("#search").submit(function render(e){
             e.preventDefault();
             const movieTitle = $("input[name=title]").val();
-            const res = requestMovie(movieTitle);
+            const res = requestMovie("{% url "movies:list" %}", movieTitle);
             console.log(res["data"])
             const count = res["meta"]["count"];
             const content = res["data"];
@@ -34,9 +34,9 @@
                     var idx = j + i * 3;
                     var data = content[idx]
                     innerHtml += `
-                    <a href="http://localhost:8000/${data["id"]}">
+                    <a href="{% url "movies:detail" %}?id=${data["id"]}">
                         <article>
-                            <header><img src="http://localhost:8000/${data["imgPath"]}" style="max-width: 100%;width: 100%"></header>
+                            <header><img src="{{ request.scheme }}://{{ request.get_host }}/${data["imgPath"]}" style="max-width: 100%;width: 100%"></header>
                             <h5>${data["name"]}</h5>
                             <footer>
                                 ${data["duration"]} min <br>

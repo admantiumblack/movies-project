@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {% load static %}
+    <script src="{% static 'js/utilities.js' %}"></script>
+</head>
+<body>
+    <h3 style="margin-bottom: 0%;">Movie Listing @ GV Cinema</h3>
+    <a href="{% url "home" %}" role="button" style="background-color: white; border-color: black; color: black;">Back</a>
+    <h5 style="margin-bottom: 0%;">{{ title }}</h5>
+    <p>
+        ({{ mpaaRating }}: {{ label }})
+    </p>
+    <div class="grid">
+        <div>
+            <img src="{{ request.scheme }}://{{ request.get_host }}/{{ imgPath }}" style="max-width: 100%; width: 100%;">
+        </div>
+        <style>
+            p.synopsis {
+                font-size: x-small;
+            }
+            p.detail {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+        <div>
+            <h5>Details</h5>
+            <p class="detail">Genre: {{ genres }}</p>
+            <p class="detail">Language: {{language}}</p>
+            <p class="detail">Duration: {{ duration }}</p>
+            <p class="detail">User Rating: {{ userRating }}</p>
+
+            <h5>Synopsis</h5>
+            <p class="synopsis">{{ description|safe }}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,5 +1,5 @@
-function requestMovie(movieName='', movieId=''){
-    url = "http://localhost:8000/movies?";
+function requestMovie(url, movieName='', movieId=''){
+    url = url + "?"
     if(movieName != '' && movieId == ''){
         url += `name=${movieName}`;
     }else if(movieName == '' && movieId != ''){
