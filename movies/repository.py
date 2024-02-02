@@ -6,7 +6,7 @@ class MovieRepository:
 
     @classmethod
     def search_by_name(cls, qs, name):
-        return qs.filter(name__like=name)
+        return qs.filter(name__icontains=name)
 
     @classmethod
     def search_by_id(cls, qs, id):

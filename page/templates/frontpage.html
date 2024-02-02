@@ -6,33 +6,52 @@
     <title>Movie Listing</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {% load static %}
+    <script src="{% static 'js/utilities.js' %}"></script>
 </head>
 <body>
     <h3>Movie Listing @ GV Cinema</h3>
-    <form>
+    <form id="search">
         <input type="text" name="title" id="title" placeholder="search movies..">
     </form>
-    <div class="grid">
-        <article>
-
-        </article>
-        <article>
-
-        </article>
-        <article>
-
-        </article>
-    </div>
-    <div class="grid">
-        <article>
-
-        </article>
-        <article>
-
-        </article>
-        <article>
-            
-        </article>
-    </div>
+    <h4>Popular Movies this month</h4>
+    <div id="moviewrapper"></div>
+    
+    <script type="text/javascript">
+        $("#search").submit(function render(e){
+            e.preventDefault();
+            const movieTitle = $("input[name=title]").val();
+            const res = requestMovie(movieTitle);
+            console.log(res["data"])
+            const count = res["meta"]["count"];
+            const content = res["data"];
+            const row = Math.floor(count / 3);
+            console.log(row)
+            var innerHtml = '';
+            for(var i = 0; i < row; i++){
+                innerHtml += `<div class="grid">`
+                for(var j = 0; j < 3; j++){
+                    var idx = j + i * 3;
+                    var data = content[idx]
+                    innerHtml += `
+                    <a href="http://localhost:8000/${data["id"]}">
+                        <article>
+                            <header><img src="http://localhost:8000/${data["imgPath"]}" style="max-width: 100%;width: 100%"></header>
+                            <h5>${data["name"]}</h5>
+                            <footer>
+                                ${data["duration"]} min <br>
+                                user rating: ${data["userRating"]}
+                            </footer>
+                        </article>
+                    </a>
+                    `
+                }
+                innerHtml += "</div>"
+            }
+            document.getElementById("moviewrapper").innerHTML = innerHtml
+        });
+        
+        $("#search").submit();
+    </script>
 </body>
 </html>
