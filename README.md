@@ -1,2 +1,4 @@
-# python-template
-template for personal python projects
+# Movies Project
+project for omni solutions apps
+
+installation: run docker-compose up --build to run server
