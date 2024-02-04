@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path
 from movies.views import movie_list, movie_view
 

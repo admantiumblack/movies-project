@@ -33,5 +33,5 @@ class TestMovie:
 
         try:
             assert res.id == expected_output
-        except:
+        except AttributeError:
             assert expected_output is None and res is None

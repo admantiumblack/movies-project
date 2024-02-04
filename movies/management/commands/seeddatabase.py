@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand, CommandParser
 from movies import models
 import json
-from operator import itemgetter
 
 
 class Command(BaseCommand):
