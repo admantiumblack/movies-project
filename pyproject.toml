@@ -43,3 +43,10 @@ line-ending = "auto"
 
 [tool.ruff.lint.isort]
 length-sort = true
+
+[tool.pytest.ini_options]
+testpaths = [
+    "*tests",
+    "*integration",
+]
+DJANGO_SETTINGS_MODULE = "page.settings"

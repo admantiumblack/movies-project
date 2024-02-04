@@ -29,7 +29,6 @@ def movie_list(request):
         queryset = MovieRepository.search_by_id(queryset, validated_query["id"])
     elif "name" in validated_query:
         queryset = MovieRepository.search_by_name(queryset, validated_query["name"])
-        print(queryset.all())
 
     excluded_fields = {"genre", "mpaaRating"}
     if "include" in validated_query:
