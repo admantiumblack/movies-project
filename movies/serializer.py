@@ -60,6 +60,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 class MovieSerializer(DynamicModelSerializer):
     genre = GenreSerializer(read_only=True, many=True)
+    # uses many to handle RelatedManager Object
     mpaaRating = MPAARatingMappingSerializer(read_only=True, many=True)
 
     def to_representation(self, instance):
