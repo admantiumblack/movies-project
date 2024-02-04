@@ -1,11 +1,13 @@
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
-from movies import serializer
 from rest_framework import status
-from movies.repository import MovieRepository
-from movies.models import Movie
 from django.template.response import TemplateResponse
+from rest_framework.decorators import api_view
 from django.views.decorators.http import require_GET
+
+from movies import serializer
+from movies.models import Movie
+from movies.repository import MovieRepository
+
 
 # Create your views here.
 @api_view(["GET"])
@@ -22,9 +24,12 @@ def movie_list(request):
         return JsonResponse(response, status=status.HTTP_400_BAD_REQUEST)
 
     validated_query = param_serializer.validated_data
-
     queryset = Movie.objects.get_queryset()
-    queryset = MovieRepository.search(queryset, **validated_query)
+    if "id" in validated_query:
+        queryset = MovieRepository.search_by_id(queryset, validated_query["id"])
+    elif "name" in validated_query:
+        queryset = MovieRepository.search_by_name(queryset, validated_query["name"])
+        print(queryset.all())
 
     excluded_fields = {"genre", "mpaaRating"}
     if "include" in validated_query:
@@ -41,7 +46,9 @@ def movie_list(request):
         "meta": {"count": len(data), "status": status.HTTP_200_OK},
         "data": data,
     }
+    print(response)
     return JsonResponse(response, status=status.HTTP_200_OK)
+
 
 @require_GET
 def movie_view(request):
@@ -58,19 +65,18 @@ def movie_view(request):
     validated_query = param_serializer.validated_data
 
     queryset = Movie.objects.get_queryset()
-    queryset = MovieRepository.search(queryset, **validated_query)
+    queryset = MovieRepository.search_by_id(queryset, validated_query["id"])
     data = queryset.first()
     data = serializer.MovieSerializer(data).data
     context = {
-        'title': data['name'],
+        "title": data["name"],
         "mpaaRating": data["mpaaRating"]["type"],
         "label": data["mpaaRating"]["label"],
         "imgPath": data["imgPath"],
-        "language": data['language'],
-        "duration": data['duration'],
-        "userRating": data['userRating'],
-        "description": data['description'],
-        "genres": ','.join(data['genre'])
-        
+        "language": data["language"],
+        "duration": data["duration"],
+        "userRating": data["userRating"],
+        "description": data["description"],
+        "genres": ",".join(data["genre"]),
     }
     return TemplateResponse(request, "moviepage.html", context=context)

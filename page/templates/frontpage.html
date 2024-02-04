@@ -25,26 +25,31 @@
             console.log(res["data"])
             const count = res["meta"]["count"];
             const content = res["data"];
-            const row = Math.floor(count / 3);
+            const row = count / 3;
             console.log(row)
             var innerHtml = '';
             for(var i = 0; i < row; i++){
                 innerHtml += `<div class="grid">`
                 for(var j = 0; j < 3; j++){
                     var idx = j + i * 3;
-                    var data = content[idx]
-                    innerHtml += `
-                    <a href="{% url "movies:detail" %}?id=${data["id"]}">
+                    if(idx < count){
+                        var data = content[idx]
+                        innerHtml += `
                         <article>
-                            <header><img src="{{ request.scheme }}://{{ request.get_host }}/${data["imgPath"]}" style="max-width: 100%;width: 100%"></header>
-                            <h5>${data["name"]}</h5>
-                            <footer>
-                                ${data["duration"]} min <br>
-                                user rating: ${data["userRating"]}
-                            </footer>
-                        </article>
-                    </a>
-                    `
+                            <a href="{% url "movies:detail" %}?id=${data["id"]}">
+                                <header><img src="{{ request.scheme }}://{{ request.get_host }}/${data["imgPath"]}" style="max-width: 100%;width: 100%"></header>
+                                <h5>${data["name"]}</h5>
+                                <footer>
+                                    ${data["duration"]} min <br>
+                                    user rating: ${data["userRating"]}
+                                </footer>
+                                </a>
+                            </article>
+                        `
+                    }
+                    else{
+                        innerHtml += `<article style="visibility: hidden;"></article>`
+                    }
                 }
                 innerHtml += "</div>"
             }

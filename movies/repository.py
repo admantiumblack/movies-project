@@ -11,12 +11,3 @@ class MovieRepository:
     @classmethod
     def search_by_id(cls, qs, id):
         return qs.filter(id=id)
-
-    @classmethod
-    def search(cls, queryset, **kwargs):
-        if "id" in kwargs:
-            queryset = cls.search_by_id(queryset, kwargs["id"])
-        if "name" in kwargs:
-            queryset = cls.search_by_name(queryset, kwargs["name"])
-
-        return queryset
