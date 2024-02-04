@@ -62,7 +62,7 @@ class TestMovieSerializer:
         param_serializer = self.SERIALIZER(input)
 
         assert param_serializer.data == expected_output
-    
+
     @pytest.mark.parametrize(
         "exclude, input, expected_output",
         [

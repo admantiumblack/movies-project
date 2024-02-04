@@ -21,8 +21,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("", home_view, name='home'), 
-    path("movies/", include("movies.urls"))
-    ] + static(
-    settings.STATIC_URL, document_root=settings.STATIC_ROOT
-)
+    path("", home_view, name="home"),
+    path("movies/", include("movies.urls")),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
