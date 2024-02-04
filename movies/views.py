@@ -45,7 +45,6 @@ def movie_list(request):
         "meta": {"count": len(data), "status": status.HTTP_200_OK},
         "data": data,
     }
-    print(response)
     return JsonResponse(response, status=status.HTTP_200_OK)
 
 
