@@ -31,8 +31,8 @@ exclude = [
     "*__init__.py",
 ]
 
-fixable = ["ALL"]
-unfixable = []
+lint.fixable = ["ALL"]
+lint.unfixable = []
 src = []
 
 [tool.ruff.format]
